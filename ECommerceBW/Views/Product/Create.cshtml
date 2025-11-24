@@ -1,0 +1,39 @@
+﻿@model ECommerceBW.ViewModels.CreateViewModel;
+@{
+}
+
+<form asp-controller="Product" asp-action="Create" method="post">
+
+    <div>
+        <label for="Name">Name</label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label for="Description">Description</label>
+        <input asp-for="Description" />
+    </div>
+
+    <div>
+        <label for="Cover">Cover</label>
+        <input asp-for="Cover" />
+    </div>
+
+    <div>
+        <label for="Image1">Image1</label>
+        <input  asp-for="Image1" />
+    </div>
+
+    <div>
+        <label for="Image2">Image2</label>
+        <input asp-for="Image2" />
+    </div>
+
+    <div>
+        <label for="Price">Price</label>
+        <input type="number" asp-for="Price" />
+    </div>
+
+   
+    <button type="submit">Submit</button>
+</form>

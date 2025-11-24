@@ -3,14 +3,22 @@ using Microsoft.Data.SqlClient;
 using ECommerceBW.Helpers.Enums;
 using ECommerceBW.Models;
 using System.Data;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace ECommerceBW.Helpers
 {
     public class DbHelper
     {
-        private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        //Alessio
+        //private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+
+        //private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+
+        //Claudio
+        private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+
+        private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         public static void InitializeDb()
         {
@@ -92,8 +100,7 @@ namespace ECommerceBW.Helpers
             connection.Open();
 
             var commandText = """
-                SELECT * FROM Products
-                );
+                SELECT * FROM Products                ;
                 """;
 
             var command = connection.CreateCommand();
@@ -114,18 +121,74 @@ namespace ECommerceBW.Helpers
 
                 var product = new Product()
                 {
-                    Id=id,
-                    Name=name,
-                    Description=description,
-                    Cover=cover,
-                    Image1=image1,
-                    Image2=image2,
-                    Price=price,
-                }
-                products.Add(product)
+                    Id = id,
+                    Name = name,
+                    Description = description,
+                    Cover = cover,
+                    Image1 = image1,
+                    Image2 = image2,
+                    Price = price,
+                };
+                products.Add(product);
             }
             return products;
              
         }
+
+        public static bool AddProduct(Product product)
+        {
+            bool result = false;
+
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+
+            connection.Open();
+
+            var commandText = """
+                INSERT INTO Products VALUES (
+                    @Id,
+                    @Name,
+                    @Description,
+                    @Cover,
+                    @Image1,
+                    @Image2,
+                    @Price
+                );
+                """;
+
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar,25);
+            command.Parameters.Add("@Description", SqlDbType.NVarChar,2000);
+            command.Parameters.Add("@Cover", SqlDbType.NVarChar, 2000);
+            command.Parameters.Add("@Image1", SqlDbType.NVarChar, 2000);
+            command.Parameters.Add("@Image2", SqlDbType.NVarChar, 2000);
+            command.Parameters.Add("@Price", SqlDbType.Decimal).Precision=6;
+            command.Parameters["@Price"].Scale = 2;
+
+            command.Prepare();
+            command.Parameters["@Id"].Value = product.Id;
+            command.Parameters["@Name"].Value = product.Name;
+            command.Parameters["@Description"].Value = product.Description;
+            command.Parameters["@Cover"].Value = product.Cover;
+            command.Parameters["@Image1"].Value = product.Image1;
+            command.Parameters["@Image2"].Value = product.Image2;
+            command.Parameters["@Price"].Value = product.Price;
+
+            try
+            {
+                command.ExecuteNonQuery();
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
     }
 }
