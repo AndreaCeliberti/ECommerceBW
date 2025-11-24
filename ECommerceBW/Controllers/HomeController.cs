@@ -1,8 +1,7 @@
 using System.Diagnostics;
 using ECommerceBW.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Connections.Features;
+
 
 namespace ECommerceBW.Controllers
 {
