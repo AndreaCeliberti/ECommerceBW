@@ -26,8 +26,60 @@ namespace ECommerceBW.Helpers
                 """;
             var command = connection.CreateCommand();
             command.CommandText = commandText;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                if (ex.Number == (int)ECodiciDb.DatabaseEsistente)
+                {
+                    Console.WriteLine("Il database è già stato creato.");
+                }
+
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
 
         }
-        public static void CreateProductsTable() { }
+
+        public static void CreateProductsTable()
+        {
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+
+            connection.Open();
+
+            var commandText = """
+                CREATE TABLE Products (
+                    Id UNIQUEIDENTIFIER PRIMARY KEY,
+                    Name NVARCHAR(25) NOT NULL,
+                    Description NVARCHAR(2000) NOT NULL,
+                    Price DECIMAL(6,2)
+                );
+                """;
+
+            var command = connection.CreateCommand();
+
+            command.CommandText = commandText;
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == (int)ECodiciDb.TabellaEsistente)
+                {
+                    Console.WriteLine("La tabella è già stata creata.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+        }
     }
 }
