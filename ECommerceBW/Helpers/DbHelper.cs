@@ -56,6 +56,9 @@ namespace ECommerceBW.Helpers
                     Id UNIQUEIDENTIFIER PRIMARY KEY,
                     Name NVARCHAR(25) NOT NULL,
                     Description NVARCHAR(2000) NOT NULL,
+                    Cover NVARCHAR(2000) NOT NULL,
+                    Image1 NVARCHAR(2000) NOT NULL,
+                    Image2 NVARCHAR(2000) NOT NULL,
                     Price DECIMAL(6,2)
                 );
                 """;
@@ -80,6 +83,49 @@ namespace ECommerceBW.Helpers
                 Console.WriteLine(ex.Message);
                 Environment.Exit(1);
             }
+        }
+        
+        public static List<Product> GetProducts()
+        {
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+
+            connection.Open();
+
+            var commandText = """
+                SELECT * FROM Products
+                );
+                """;
+
+            var command = connection.CreateCommand();
+
+            command.CommandText = commandText;
+            using var reader = command.ExecuteReader();
+            var products = new List<Product>();
+            while (reader.Read())
+            {
+                var id = reader.GetGuid(0);
+                var name = reader.GetString(1);
+                var description = reader.GetString(2);
+                var cover = reader.GetString(3);
+                var image1 = reader.GetString(4);
+                var image2 = reader.GetString(5);
+                var price = reader.GetDecimal(6);
+
+
+                var product = new Product()
+                {
+                    Id=id,
+                    Name=name,
+                    Description=description,
+                    Cover=cover,
+                    Image1=image1,
+                    Image2=image2,
+                    Price=price,
+                }
+                products.Add(product)
+            }
+            return products;
+             
         }
     }
 }

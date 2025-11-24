@@ -4,6 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+//Qui facciamo partire il db con le sue funzioni.
+if (app.Environment.IsDevelopment())
+{
+    DbHelper.InitializeDb();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
