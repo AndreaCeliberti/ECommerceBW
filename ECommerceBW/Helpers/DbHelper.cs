@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Connections.Features;
-using Microsoft.Data
-using ECommerceBW.Helper.Enums;
+using Microsoft.Data.SqlClient;
+using ECommerceBW.Helpers.Enums;
 using ECommerceBW.Models;
 using System.Data;
 
-namespace ECommerceBW.Helper
+namespace ECommerceBW.Helpers
 {
     public class DbHelper
     {
@@ -19,9 +19,15 @@ namespace ECommerceBW.Helper
         }
         public static void CreateDb()
         {
-            using var connection = new SqlConnetion(_masterConnectionString);
+            using var connection = new SqlConnection(_masterConnectionString);
             connection.Open();
+            var commandText = """
+                CREATE DATABASE ECommerceDb;
+                """;
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
 
         }
+        public static void CreateProductsTable() { }
     }
 }
