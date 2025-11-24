@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Connections.Features;
+using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.Data.SqlClient;
 using ECommerceBW.Helpers.Enums;
 using ECommerceBW.Models;

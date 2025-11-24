@@ -2,6 +2,7 @@ using System.Diagnostics;
 using ECommerceBW.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ECommerceBW.Controllers
 {
     public class HomeController : Controller
