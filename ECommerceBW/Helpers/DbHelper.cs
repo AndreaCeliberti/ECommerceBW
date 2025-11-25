@@ -16,9 +16,14 @@ namespace ECommerceBW.Helpers
         //private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Claudio
-        private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        //private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        //private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        
+        //Andrea
+        private const string _masterConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+
+        private const string _ecommerceConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         public static void InitializeDb()
         {
