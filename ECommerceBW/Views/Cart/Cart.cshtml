@@ -1,8 +1,7 @@
-﻿@model List<ProductViewModel>
-
+﻿@model List<CartViewModel>
 
 @{
-    ViewBag.Title = "Products List";
+    ViewBag.Title = "Cart List";
     //var culterInfo = new CultureInfo("it-IT");
 
 }
@@ -17,13 +16,15 @@
     <div>
         <h4> Non ci sono prodotti... </h4>
     </div>
-}else
+}
+else
 {
-    @foreach(var product in Model)
+    @foreach (var product in Model)
     {
         <div>
 
             <h1>@product.Name</h1>
+            <h2>@product.Amount</h2>
 
             <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">Details</a>
 

@@ -117,6 +117,16 @@ namespace ECommerceBW.Controllers
             return RedirectToAction("Index", "Product");
         }
 
+        [HttpGet]
+        public IActionResult Details(Guid id)
+        {
+            Product? product = DbHelper.GetProductsById(id);
+
+            if (product == null)
+                return NotFound();
+
+            return View(product);
+        }
 
     }
 }

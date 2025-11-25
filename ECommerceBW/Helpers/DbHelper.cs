@@ -4,6 +4,7 @@ using ECommerceBW.Helpers.Enums;
 using ECommerceBW.Models;
 using System.Data;
 using System.Runtime.InteropServices.Marshalling;
+using ECommerceBW.ViewModels;
 
 namespace ECommerceBW.Helpers
 {
@@ -11,24 +12,25 @@ namespace ECommerceBW.Helpers
     {
 
         //Alessio
-        //private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        //private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Claudio
         //private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
         //private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
-        
-        //Andrea
-        private const string _masterConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        private const string _ecommerceConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        //Andrea
+        //private const string _masterConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+
+        //private const string _ecommerceConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         public static void InitializeDb()
         {
             CreateDb();
             CreateProductsTable();
+            CreateCartTable();
         }
         public static void CreateDb()
         {
@@ -43,14 +45,14 @@ namespace ECommerceBW.Helpers
             {
                 command.ExecuteNonQuery();
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 if (ex.Number == (int)ECodiciDb.DatabaseEsistente)
                 {
                     Console.WriteLine("Il database è già stato creato.");
                 }
 
-            }catch (Exception ex)
+            } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Environment.Exit(1);
@@ -97,7 +99,7 @@ namespace ECommerceBW.Helpers
                 Environment.Exit(1);
             }
         }
-        
+
         public static List<Product> GetProducts()
         {
             using var connection = new SqlConnection(_ecommerceConnectionString);
@@ -105,7 +107,7 @@ namespace ECommerceBW.Helpers
             connection.Open();
 
             var commandText = """
-                SELECT * FROM Products                ;
+                SELECT * FROM Products;
                 """;
 
             var command = connection.CreateCommand();
@@ -137,7 +139,7 @@ namespace ECommerceBW.Helpers
                 products.Add(product);
             }
             return products;
-             
+
         }
 
         public static bool AddProduct(Product product)
@@ -164,12 +166,12 @@ namespace ECommerceBW.Helpers
             command.CommandText = commandText;
 
             command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
-            command.Parameters.Add("@Name", SqlDbType.NVarChar,25);
-            command.Parameters.Add("@Description", SqlDbType.NVarChar,2000);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, 25);
+            command.Parameters.Add("@Description", SqlDbType.NVarChar, 2000);
             command.Parameters.Add("@Cover", SqlDbType.NVarChar, 2000);
             command.Parameters.Add("@Image1", SqlDbType.NVarChar, 2000);
             command.Parameters.Add("@Image2", SqlDbType.NVarChar, 2000);
-            command.Parameters.Add("@Price", SqlDbType.Decimal).Precision=6;
+            command.Parameters.Add("@Price", SqlDbType.Decimal).Precision = 6;
             command.Parameters["@Price"].Scale = 2;
 
             command.Prepare();
@@ -222,18 +224,18 @@ namespace ECommerceBW.Helpers
                 };
             }
 
-            return null; 
+            return null;
         }
 
 
         public static bool UpdateProduct(Product product)
         {
- 
+
 
             using var connection = new SqlConnection(_ecommerceConnectionString);
             connection.Open();
 
-        var commandText = """
+            var commandText = """
             UPDATE Products
                     SET Name = @Name,
                     Description = @Description,
@@ -263,5 +265,121 @@ namespace ECommerceBW.Helpers
 
         }
 
+
+        public static void CreateCartTable()
+        {
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+
+            connection.Open();
+
+            var commandText = """
+                CREATE TABLE Cart (
+                    Id UNIQUEIDENTIFIER NOT NULL,
+                    Amount int NOT NULL,
+                    FOREIGN KEY(Id) REFERENCES Products(Id)
+                );
+                """;
+
+            var command = connection.CreateCommand();
+
+            command.CommandText = commandText;
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == (int)ECodiciDb.TabellaEsistente)
+                {
+                    Console.WriteLine("La tabella è già stata creata.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Environment.Exit(1);
+            }
+        }
+        public static void AddToCartByName(Guid id, string productName, decimal productPrice, int amount, string cover)
+        {
+
+
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = """
+                SELECT Amount FROM Cart
+                WHERE Id=@Id
+                """;
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+
+            var result = command.ExecuteScalar();
+            if (result != null)
+            {
+                //Qui il prodotto è già aggiunto al carrello, in questo caso vogliamo solo aggiornare l'Amount
+
+                using var updateCmd = connection.CreateCommand();
+                updateCmd.CommandText = "UPDATE Cart SET Amount = Amount + @Amount WHERE Id = @Id;";
+                updateCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+                updateCmd.Parameters.Add("@Amount", SqlDbType.Int).Value = amount;
+                updateCmd.ExecuteNonQuery();
+            }
+            else
+            {
+                //Qui il prodotto non è stato ancora aggiunto al carrello quindi facciamo un Insert
+
+                using var insertCmd = connection.CreateCommand();
+                insertCmd.CommandText = "INSERT INTO Cart (Id, Amount) VALUES (@Id, @Amount);";
+                insertCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+                insertCmd.Parameters.Add("@Amount", SqlDbType.Int).Value = amount;
+                insertCmd.ExecuteNonQuery();
+            }
+        }
+     
+        public static List<CartViewModel> GetCart()
+            {
+                using var connection = new SqlConnection(_ecommerceConnectionString);
+
+                connection.Open();
+                var commandText = """
+                SELECT p.Id AS ProductId, p.Name, p.Cover, p.Price, c.Amount
+                FROM Products p
+                INNER JOIN Cart c ON p.Id = c.Id;
+                """;
+            var command = connection.CreateCommand();
+
+            command.CommandText = commandText;
+            using var reader = command.ExecuteReader();
+            var cart = new List<CartViewModel>();
+            while (reader.Read())
+            {
+                var id = reader.GetGuid(0);
+                var name = reader.GetString(1);
+                var cover = reader.GetString(2);
+                var price = reader.GetDecimal(3);
+                var amount = reader.GetInt32(4);
+
+
+                var product = new CartViewModel()
+                {
+                    Id = id,
+                    Name = name,
+                    Cover = cover,
+                    Price = price,
+                    Amount=amount,
+                };
+                cart.Add(product);
+            }
+            return cart;
+
+
+        }
+            
+            
+
     }
+
 }
+

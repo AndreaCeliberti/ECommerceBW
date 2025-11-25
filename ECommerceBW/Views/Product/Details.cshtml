@@ -1,0 +1,14 @@
+﻿@model Product;
+
+<div>
+    <h1>@Model.Name</h1>
+    <p>@Model.Price</p>
+    
+</div>
+<form asp-controller="Cart" asp-action="AddToCart" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <label>Amount:</label>
+    <input type="number" name="Amount" min="1" value="1"/>
+    <button type="submit">Add To Cart</button>
+</form>
+
