@@ -1,0 +1,27 @@
+﻿@model Product
+
+<form asp-action="EditProduct" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+
+    <label asp-for="Description"></label>
+    <input asp-for="Description" />
+
+    <label asp-for="Cover"></label>
+    <input asp-for="Cover" />
+
+    <label asp-for="Image1"></label>
+    <input asp-for="Image1" />
+
+    <label asp-for="Image2"></label>
+    <input asp-for="Image2" />
+
+    <label asp-for="Price"></label>
+    <input asp-for="Price" />
+
+
+
+    <button type="submit">Salva</button>
+</form>

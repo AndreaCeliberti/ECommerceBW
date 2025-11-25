@@ -190,5 +190,73 @@ namespace ECommerceBW.Helpers
         }
 
 
+        public static Product? GetProductsById(Guid Id)
+        {
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+            connection.Open();
+
+            var commandText = "SELECT * FROM Products WHERE Id=@Id;";
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Id;
+
+            using var reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                return new Product
+                {
+                    Id = reader.GetGuid(0),
+                    Name = reader.GetString(1),
+                    Description = reader.GetString(2),
+                    Cover = reader.GetString(3),
+                    Image1 = reader.GetString(4),
+                    Image2 = reader.GetString(5),
+                    Price = reader.GetDecimal(6)
+                };
+            }
+
+            return null; 
+        }
+
+
+        public static bool UpdateProduct(Product product)
+        {
+ 
+
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+            connection.Open();
+
+        var commandText = """
+            UPDATE Products
+                    SET Name = @Name,
+                    Description = @Description,
+                    Cover = @Cover,
+                    Image1 = @Image1,
+                    Image2 = @Image2,
+                    Price = @Price
+                    WHERE Id = @Id;
+            """;
+
+
+            using var command = connection.CreateCommand();
+            command.CommandText = commandText;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = product.Id;
+            command.Parameters.Add("@Name", SqlDbType.NVarChar, 25).Value = product.Name;
+            command.Parameters.Add("@Description", SqlDbType.NVarChar, 2000).Value = product.Description;
+            command.Parameters.Add("@Cover", SqlDbType.NVarChar, 2000).Value = product.Cover;
+            command.Parameters.Add("@Image1", SqlDbType.NVarChar, 2000).Value = product.Image1;
+            command.Parameters.Add("@Image2", SqlDbType.NVarChar, 2000).Value = product.Image2;
+            command.Parameters.Add("@Price", SqlDbType.Decimal).Value = product.Price;
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            return rowsAffected > 0;
+
+
+        }
+
     }
 }
