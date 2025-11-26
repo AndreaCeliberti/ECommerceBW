@@ -120,12 +120,14 @@ namespace ECommerceBW.Controllers
         [HttpGet]
         public IActionResult Details(Guid id)
         {
-            Product? product = DbHelper.GetProductsById(id);
-
+            var product = DbHelper.GetProductsById(id);
+            var list = DbHelper.GetProducts();
+            var model = new DetailViewModel { Prodotto = product, ProductList = list };
+            //creare var view model con prop list dei prodotti e singolo prodotto
             if (product == null)
                 return NotFound();
 
-            return View(product);
+            return View(model);
         }
 
         [HttpPost]

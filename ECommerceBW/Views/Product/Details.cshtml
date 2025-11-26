@@ -1,14 +1,64 @@
-﻿@model Product;
+﻿@model DetailViewModel;
 
-<div>
-    <h1>@Model.Name</h1>
-    <p>@Model.Price</p>
-    
+<div class="container">
+    <div class="row">
+   
+    <div id="carouselExample" class="carousel slide col-5">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="@Model.Prodotto.Cover" class="d-block w-100" alt="@Model.Prodotto.Name">
+                </div>
+                <div class="carousel-item">
+                    <img src="@Model.Prodotto.Image1" class="d-block w-100" alt="@Model.Prodotto.Name">
+                </div>
+                <div class="carousel-item">
+                    <img src="@Model.Prodotto.Image2" class="d-block w-100" alt="@Model.Prodotto.Name">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="col-7">
+    <h1 class="text-white">@Model.Prodotto.Name</h1>
+    <p class="text-white">@Model.Prodotto.Description</p>
+    <p class="text-white">@Model.Prodotto.Price</p>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" name="id" value="@Model.Prodotto.Id" />
+                <input type="hidden" name="productName" value="@Model.Prodotto.Name" />
+                <input type="hidden" name="productPrice" value="@Model.Prodotto.Price" />
+                <input type="hidden" name="cover" value="@Model.Prodotto.Cover" />
+                <label class="text-white">Amount:</label>
+                <input type="number" name="amount" min="1" value="1" />
+                <button type="submit">Add To Cart</button>
+            </form>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+@for (int i=0; i<3; i++) 
+{
+    <div class="col-4 mb-2  ">
+        <div class="card h-100 meka-card">
+                  <img src="@Model.ProductList[i].Cover" class="card-img-top img-fluid" style="object-fit:cover; min-height:112px;max-height:236px" alt="@Model.ProductList[i].Name">
+            <div class="card-body">
+                  <h5 class="card-title">@Model.ProductList[i].Name</h5>
+            </div>
+            <div class="card-footer" style="text-align:center">
+            <a class="btn btn-grad" asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@Model.ProductList[i].Id">Details</a>
+            </div>
+        </div>
+    </div>
+
+}
+        </div>
+    </div>
+
 </div>
-<form asp-controller="Cart" asp-action="AddToCart" method="post">
-    <input type="hidden" asp-for="Id"/>
-    <label>Amount:</label>
-    <input type="number" name="Amount" min="1" value="1"/>
-    <button type="submit">Add To Cart</button>
-</form>
 

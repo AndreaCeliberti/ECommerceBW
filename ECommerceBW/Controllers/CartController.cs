@@ -33,10 +33,10 @@ namespace ECommerceBW.Controllers
         //}
 
         [HttpPost]
-        public IActionResult AddToCart(Guid id, string productName, decimal productPrice, int amount, string cover)
+        public IActionResult AddToCart(Guid id, int amount)
         {
             // qui chiami direttamente il DBHelper
-            DbHelper.AddToCartByName(id, productName, productPrice, amount, cover);
+            DbHelper.AddToCartByName(id, amount);
 
             TempData["SuccessMessage"] = "Prodotto aggiunto al carrello!";
             return RedirectToAction("Index", "Product");

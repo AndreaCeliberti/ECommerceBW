@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Connections.Features;
-using Microsoft.Data.SqlClient;
 using ECommerceBW.Helpers.Enums;
 using ECommerceBW.Models;
+using ECommerceBW.ViewModels;
+using Microsoft.AspNetCore.Connections.Features;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Runtime.InteropServices.Marshalling;
-using ECommerceBW.ViewModels;
 
 namespace ECommerceBW.Helpers
 {
@@ -12,14 +13,14 @@ namespace ECommerceBW.Helpers
     {
 
         //Alessio
-        //private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        // private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Claudio
-        private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        //private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        //private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Andrea
         //private const string _masterConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
@@ -301,7 +302,7 @@ namespace ECommerceBW.Helpers
                 Environment.Exit(1);
             }
         }
-        public static void AddToCartByName(Guid id, string productName, decimal productPrice, int amount, string cover)
+        public static void AddToCartByName(Guid id, int amount)
         {
 
 
@@ -337,7 +338,57 @@ namespace ECommerceBW.Helpers
                 insertCmd.ExecuteNonQuery();
             }
         }
-     
+        //public static void AddToCartByName(Guid id, int amount)
+        //{
+        //    using var connection = new SqlConnection(_ecommerceConnectionString);
+        //    connection.Open();
+
+        //    // Verifica che il prodotto esista
+        //    using var checkCmd = connection.CreateCommand();
+        //    checkCmd.CommandText = "SELECT COUNT(1) FROM Products WHERE Id = @Id;";
+        //    checkCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+        //    var exists = (int)checkCmd.ExecuteScalar() > 0;
+        //    if (!exists)
+        //        throw new InvalidOperationException("Prodotto non trovato: impossibile aggiungere al carrello.");
+
+        //    // Upsert nel carrello (controllo + insert/update)
+        //    using var tx = connection.BeginTransaction();
+        //    try
+        //    {
+        //        using var selectCmd = connection.CreateCommand();
+        //        selectCmd.Transaction = tx;
+        //        selectCmd.CommandText = "SELECT Amount FROM Cart WHERE Id = @Id;";
+        //        selectCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+        //        var result = selectCmd.ExecuteScalar();
+
+        //        if (result != null)
+        //        {
+        //            using var updateCmd = connection.CreateCommand();
+        //            updateCmd.Transaction = tx;
+        //            updateCmd.CommandText = "UPDATE Cart SET Amount = Amount + @Amount WHERE Id = @Id;";
+        //            updateCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+        //            updateCmd.Parameters.Add("@Amount", SqlDbType.Int).Value = amount;
+        //            updateCmd.ExecuteNonQuery();
+        //        }
+        //        else
+        //        {
+        //            using var insertCmd = connection.CreateCommand();
+        //            insertCmd.Transaction = tx;
+        //            insertCmd.CommandText = "INSERT INTO Cart (Id, Amount) VALUES (@Id, @Amount);";
+        //            insertCmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id;
+        //            insertCmd.Parameters.Add("@Amount", SqlDbType.Int).Value = amount;
+        //            insertCmd.ExecuteNonQuery();
+        //        }
+
+        //        tx.Commit();
+        //    }
+        //    catch
+        //    {
+        //        tx.Rollback();
+        //        throw;
+        //    }
+        //}
+
         public static List<CartViewModel> GetCart()
             {
                 using var connection = new SqlConnection(_ecommerceConnectionString);
@@ -449,7 +500,7 @@ namespace ECommerceBW.Helpers
 
             return result;
         }
-
+       
 
     }
 

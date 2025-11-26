@@ -17,6 +17,76 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+/*body {
+    margin-bottom: 60px;
+    background-image: url("https://as1.ftcdn.net/v2/jpg/06/01/06/36/1000_F_601063659_IuZIHyvoREvWKSHFAZpuWIP3pDK0priZ.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color:white;
+}*/
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("https://as1.ftcdn.net/v2/jpg/06/01/06/36/1000_F_601063659_IuZIHyvoREvWKSHFAZpuWIP3pDK0priZ.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.7);
+    z-index: -1;
 }
+
+body {
+    background: transparent;
+}
+/*CSS PERSONALIZZATO*/
+.btn-grad {
+        background-image: linear-gradient(to right, #DC2424 0%, #4A569D 51%, #DC2424 100%);
+        margin: 10px 0;
+        padding: 10px 20px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: white !important;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        display: inline-block;
+        width: auto !important;
+        /*    min-width: 150px; */
+        font-size: 1rem;
+        cursor: pointer;
+}
+.btn-grad:hover {
+            background-position: right center;
+            color: #fff;
+            text-decoration: none;
+}
+.meka-card {
+    background: rgba(20,20,35, 0.85);
+    color: #fff;
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    transition: 0.3s;
+}
+
+.meka-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 0 30px rgba(220,36,36,0.5);
+}
+.meka-nav {
+    background: rgba(20,20,35, 0.85);
+    color: white !important;
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    transition: 0.3s;
+}
+a{
+    color:white !important;
+}
+         
