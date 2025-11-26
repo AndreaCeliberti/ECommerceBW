@@ -41,5 +41,21 @@ namespace ECommerceBW.Controllers
             TempData["SuccessMessage"] = "Prodotto aggiunto al carrello!";
             return RedirectToAction("Index", "Product");
         }
+
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            var deleteResult = DbHelper.RemoveProductByid(id);
+
+            if (!deleteResult)
+            {
+
+                TempData["DeleteError"] = "Errone durante l'eliminazione del prodotto";
+            }
+
+            return RedirectToAction("Cart", "Cart");
+        }
+
+
     }
 }

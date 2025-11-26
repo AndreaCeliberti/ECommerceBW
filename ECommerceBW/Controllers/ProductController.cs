@@ -128,5 +128,22 @@ namespace ECommerceBW.Controllers
             return View(product);
         }
 
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            var deleteResult = DbHelper.DeleteProductById(id);
+
+            if (!deleteResult)
+            {
+
+                TempData["DeleteError"] = "Errone durante l'eliminazione del prodotto";
+            }
+
+            return RedirectToAction("EditGrid", "Product");
+        }
+        
+
+
+
     }
 }

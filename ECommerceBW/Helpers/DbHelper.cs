@@ -12,14 +12,14 @@ namespace ECommerceBW.Helpers
     {
 
         //Alessio
-        private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        //private const string _masterConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        // private const string _ecommerceConnectionString = "Server=DESKTOP-8TSL7P4\\SQLEXPRESS;User Id=sa;Password=WinterIs55;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Claudio
-        //private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _masterConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
 
-        //private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
+        private const string _ecommerceConnectionString = "Server=DESKTOP-LGN2PEU\\SQLEXPRESS;User Id=sa;Password=SA;Database=ECommerceDb;TrustServerCertificate=True;Trusted_Connection=True";
 
         //Andrea
         //private const string _masterConnectionString = "Server=WIN-39AQM68JP3H\\SQLEXPRESS;User Id=sa;Password=sa;Database=master;TrustServerCertificate=True;Trusted_Connection=True";
@@ -376,8 +376,80 @@ namespace ECommerceBW.Helpers
 
 
         }
-            
-            
+
+
+        //Delete prodotto
+
+        public static bool DeleteProductById(Guid id)
+        {
+            var result = false;
+
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+            connection.Open();
+
+            var commandText = """
+                DELETE FROM Cart WHERE Id = @Id;
+                DELETE FROM Products WHERE Id = @Id;                
+                """;
+
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+
+            command.Prepare();
+
+            command.Parameters["@Id"].Value = id;
+
+            try
+            {
+                command.ExecuteNonQuery();
+                result = true;
+            }
+            catch
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
+        //rimuove dal carrello
+        public static bool RemoveProductByid(Guid id)
+        {
+            var result = false;
+
+            using var connection = new SqlConnection(_ecommerceConnectionString);
+            connection.Open();
+
+            var commandText = """
+                DELETE FROM Cart WHERE Id = @Id;
+                             
+                """;
+
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+
+            command.Prepare();
+
+            command.Parameters["@Id"].Value = id;
+
+            try
+            {
+                command.ExecuteNonQuery();
+                result = true;
+            }
+            catch
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
 
     }
 
