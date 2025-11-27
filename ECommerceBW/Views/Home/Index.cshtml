@@ -3,29 +3,68 @@
 }
 
 
-<h1 class="text-center"> Benvenuto nello Shop Dei  Gormiti, A Tutta Forza! </h1>
-<div class=" text-center bg-transparent p-2"><img src="https://cf.geekdo-images.com/o1U98KcaySPh3PwqzIWzGQ__imagepage/img/70OCwJOC4TXbaQ2CHcqLiF0wglk=/fit-in/900x600/filters:no_upscale():strip_icc()/pic6557504.png" alt="logoGormiti"  /></div>
 <div class="container">
+    <div class="hero-section">
+        <h1 class="hero-title text-center">
+            Benvenuto nell'Era Meka
+        </h1>
+        <p class="text-center text-white fs-5 mb-4" style="position: relative; z-index: 1;">
+            A Tutta Forza! Scopri il Mondo dei Gormiti
+        </p>
 
-    <p class="text-center fs-4 mt-2">
-    Preparati a vivere la potenza dei Gormiti come mai prima d’ora!
-    <br/>
-    In questa sezione troverai i personaggi dell’Era Meka, le armature tecnologiche, 
-    <br />
-    i Mech da combattimento e tantissimi accessori esclusivi.
-    <br/>
-    Scegli il tuo guerriero, potenzia il tuo Meka e completa la tua collezione con le ultime novità disponibili.
-    
-    </p>
-    <p class ="text-center fs-4 fw-bold">
-    🚚 Spedizione veloce – 💥 Offerte esclusive – 🔒 Pagamento sicuro
-    </p>
-    <p class="text-center fs-4">
-    
-    Entra ora nell’Era Meka: il tuo prossimo Gormita ti sta aspettando!
-    </p>
-    <div class="text-center">
-    <a class="btn btn-grad" asp-area="" asp-controller="Product" asp-action="Index">Gormiti</a>
-    <a class="btn btn-grad" asp-area="" asp-controller="Cart" asp-action="Cart">Cart</a>
+        <div class="logo-container">
+            <img src="https://cf.geekdo-images.com/o1U98KcaySPh3PwqzIWzGQ__imagepage/img/70OCwJOC4TXbaQ2CHcqLiF0wglk=/fit-in/900x600/filters:no_upscale():strip_icc()/pic6557504.png"
+                 alt="Gormiti Logo"
+                 class="img-fluid" />
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <p class="text-white fs-5 text-center mb-4" style="line-height: 1.8; position: relative; z-index: 1;">
+                    Preparati a vivere la potenza dei Gormiti come mai prima d'ora!
+                    <br />
+                    In questa sezione troverai i personaggi dell'Era Meka, le armature tecnologiche,
+                    <br />
+                    i Mech da combattimento e tantissimi accessori esclusivi.
+                    <br />
+                    Scegli il tuo guerriero, potenzia il tuo Meka e completa la tua collezione con le ultime novità disponibili.
+                </p>
+            </div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">🚀</div>
+                    <h5 class="text-white fw-bold">Spedizione Veloce</h5>
+                    <p class="text-white-50">Ricevi i tuoi Gormiti in 24-48 ore</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">💎</div>
+                    <h5 class="text-white fw-bold">Offerte Esclusive</h5>
+                    <p class="text-white-50">Promozioni imperdibili ogni settimana</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">🛡️</div>
+                    <h5 class="text-white fw-bold">Pagamento Sicuro</h5>
+                    <p class="text-white-50">Transazioni protette e garantite</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA BUTTONS -->
+        <div class="cta-section text-center">
+            <p class="text-white fs-4 fw-bold mb-4">
+                Entra ora nell'Era Meka: il tuo prossimo Gormita ti sta aspettando!
+            </p>
+            <a class="btn btn-grad" asp-area="" asp-controller="Product" asp-action="Index">Scopri i Gormiti</a>
+            <a class="btn btn-grad" asp-area="" asp-controller="Cart" asp-action="Cart">Vai al Carrello</a>
+        </div>
     </div>
 </div>
+@* AGGIUNGERE GORMITA DELLA SETTIMANA *@

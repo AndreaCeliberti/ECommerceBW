@@ -1,46 +1,88 @@
-﻿@model ECommerceBW.ViewModels.CreateViewModel;
+﻿@model ECommerceBW.ViewModels.CreateViewModel
+
 @{
+    ViewBag.Title = "Crea nuovo prodotto";
 }
 
-<form asp-controller="Product" asp-action="Create" method="post">
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-    <div>
-        <label for="Name">Name</label>
-        <input asp-for="Name" />
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">➕ Aggiungi nuovo prodotto</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-controller="Product" asp-action="Create" method="post">
+
+                        <!-- NOME -->
+                        <div class="mb-3">
+                            <label class="form-label">Nome prodotto</label>
+                            <input asp-for="Name" class="form-control" placeholder="Nome del prodotto" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- DESCRIZIONE -->
+                        <div class="mb-3">
+                            <label class="form-label">Descrizione</label>
+                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Descrizione del prodotto"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- PREZZO -->
+                        <div class="mb-3">
+                            <label class="form-label">Prezzo (€)</label>
+                            <input asp-for="Price" type="number" class="form-control" step="0.01" min="0.00" placeholder="0.00" />
+                            <span asp-validation-for="Price" class="text-danger small"></span>
+                        </div>
+
+                        <!-- IMMAGINI -->
+                        <h6 class="mt-4 mb-2">Immagini</h6>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Cover (principale)</label>
+                                <input asp-for="Cover" class="form-control" placeholder="URL immagine" />
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Immagine 1</label>
+                                <input asp-for="Image1" class="form-control" placeholder="URL immagine" />
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Immagine 2</label>
+                                <input asp-for="Image2" class="form-control" placeholder="URL immagine" />
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a asp-controller="Product"
+                               asp-action="Index"
+                               class="btn btn-secondary">
+                                Annulla
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success px-5">
+                                Salva prodotto
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <div>
-        <label for="Description">Description</label>
-        <input asp-for="Description" />
-    </div>
-
-    <div>
-        <label for="Cover">Cover</label>
-        <input asp-for="Cover" />
-    </div>
-
-    <div>
-        <label for="Image1">Image1</label>
-        <input  asp-for="Image1" />
-    </div>
-
-    <div>
-        <label for="Image2">Image2</label>
-        <input asp-for="Image2" />
-    </div>
-
-    <div>
-        <label for="Price">Price</label>
-        <input type="number" asp-for="Price" step="0.01" min="0.00"/>
-    </div>
-
-   
-    <button type="submit">Submit</button>
-</form>
-
-
-<div>
-    
-    
-
 </div>

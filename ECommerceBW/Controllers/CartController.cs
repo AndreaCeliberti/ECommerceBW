@@ -10,7 +10,8 @@ namespace ECommerceBW.Controllers
         public IActionResult Cart()
         {
             List<CartViewModel> cart = DbHelper.GetCart();
-           
+            //se volessi tornare ad un pagina che si chiama diversamente dal metodo basta mettere  gli "" e scrivere dentro il nome della pagina(ovviamente all'interno della cartella view di quel ocntroller,
+            //quindi metodo di cart nella cartella di view di cart, non reindirizzare a pagine esterne tipo da cart a product
             return View(cart);
         }
         //public IActionResult Index()
@@ -39,6 +40,7 @@ namespace ECommerceBW.Controllers
             DbHelper.AddToCartByName(id, amount);
 
             TempData["SuccessMessage"] = "Prodotto aggiunto al carrello!";
+            
             return RedirectToAction("Index", "Product");
         }
 

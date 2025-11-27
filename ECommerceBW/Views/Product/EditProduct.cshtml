@@ -1,27 +1,121 @@
 ﻿@model Product
 
-<form asp-action="EditProduct" method="post">
-    <input type="hidden" asp-for="Id" />
+@{
+    ViewBag.Title = "Modifica prodotto";
+}
 
-    <label asp-for="Name"></label>
-    <input asp-for="Name" />
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-    <label asp-for="Description"></label>
-    <input asp-for="Description" />
+        <div class="col-lg-8">
 
-    <label asp-for="Cover"></label>
-    <input asp-for="Cover" />
+            <div class="card shadow-lg border-0">
 
-    <label asp-for="Image1"></label>
-    <input asp-for="Image1" />
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">✏️ Modifica prodotto</h4>
+                    <span class="badge bg-light text-dark">ID: @Model.Id</span>
+                </div>
 
-    <label asp-for="Image2"></label>
-    <input asp-for="Image2" />
+                <div class="card-body">
 
-    <label asp-for="Price"></label>
-    <input asp-for="Price" />
+                    <form asp-action="EditProduct" method="post">
 
+                        <input type="hidden" asp-for="Id" />
 
+                        <!-- NOME -->
+                        <div class="mb-3">
+                            <label class="form-label">Nome prodotto</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
 
-    <button type="submit">Salva</button>
-</form>
+                        <!-- DESCRIZIONE -->
+                        <div class="mb-3">
+                            <label class="form-label">Descrizione</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- PREZZO -->
+                        <div class="mb-3">
+                            <label class="form-label">Prezzo (€)</label>
+                            <input asp-for="Price" type="number" step="0.01" min="0" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger small"></span>
+                        </div>
+
+                        <!-- IMMAGINI ATTUALI -->
+                        <h6 class="mt-4 mb-3">Immagini attuali</h6>
+
+                        <div class="row text-center mb-4">
+
+                            <div class="col-md-4">
+                                <p class="small mb-1">Cover</p>
+                                <img src="@Model.Cover"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-height:150px; object-fit:cover;" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <p class="small mb-1">Image 1</p>
+                                <img src="@Model.Image1"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-height:150px; object-fit:cover;" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <p class="small mb-1">Image 2</p>
+                                <img src="@Model.Image2"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-height:150px; object-fit:cover;" />
+                            </div>
+
+                        </div>
+
+                        <!-- NUOVE IMMAGINI -->
+                        <h6 class="mt-4 mb-2">Modifica URL immagini</h6>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Cover</label>
+                                <input asp-for="Cover" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Image 1</label>
+                                <input asp-for="Image1" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Image 2</label>
+                                <input asp-for="Image2" class="form-control" />
+                            </div>
+
+                        </div>
+
+                        <!-- AZIONI -->
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a asp-controller="Product"
+                               asp-action="Index"
+                               class="btn btn-secondary">
+                                Indietro
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success px-5">
+                                Salva modifiche
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -10,45 +10,45 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm meka-nav border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ECommerceBW</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-lg meka-nav mb-3">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+
+                <!-- BRAND -->
+                <a class="nav-link d-flex align-items-center"  asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://cf.geekdo-images.com/o1U98KcaySPh3PwqzIWzGQ__imagepage/img/70OCwJOC4TXbaQ2CHcqLiF0wglk=/fit-in/900x600/filters:no_upscale():strip_icc()/pic6557504.png"
+                         alt="Gormiti Logo"
+                         style="width:50px; height:auto"
+                         class="navbar-logo me-2" /> GORMITI MEKA</a>
+
+                <!-- TOGGLER / HAMBURGER -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">ProductList</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Create">Add Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="EditGrid">Grid</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Cart">Cart</a>
-                        </li>
+
+                <!-- NAV LINKS -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">Catalogo Prodotti</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Create">Aggiungi Prodotto</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="EditGrid">Griglia</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Cart" asp-action="Cart">Carrello</a></li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>
     <div >
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted meka-footer">
         <div class="container">
             &copy; 2025 - ECommerceBW - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
