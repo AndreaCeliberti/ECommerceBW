@@ -1,6 +1,125 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container">
+    <div class="privacy-container">
+        <h1 class="privacy-title">@ViewData["Title"]</h1>
+
+        <div class="privacy-highlight">
+            <p class="mb-0">
+                <strong>Ultimo aggiornamento:</strong> Novembre 2025<br />
+                La tua privacy è importante per noi. Questa policy spiega come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali.
+            </p>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Informazioni che Raccogliamo</h2>
+            <p>
+                Quando utilizzi il nostro shop Gormiti Meka, potremmo raccogliere le seguenti informazioni:
+            </p>
+            <ul class="privacy-list">
+                <li> Informazioni di contatto (nome, email, indirizzo)</li>
+                <li> Informazioni di pagamento (elaborate in modo sicuro dai nostri partner)</li>
+                <li>Cronologia degli ordini e preferenze di acquisto</li>
+                <li>Dati tecnici (indirizzo IP, tipo di browser, sistema operativo)</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Come Utilizziamo i Tuoi Dati</h2>
+            <p>
+                Utilizziamo i tuoi dati personali per:
+            </p>
+            <ul class="privacy-list">
+                <li>Processare e gestire i tuoi ordini di prodotti Gormiti</li>
+                <li>Inviarti aggiornamenti sullo stato delle spedizioni</li>
+                <li>Migliorare la tua esperienza di acquisto</li>
+                <li>Inviare comunicazioni promozionali (solo con il tuo consenso)</li>
+                <li>Prevenire frodi e garantire la sicurezza del sito</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Protezione dei Dati</h2>
+            <p>
+                Implementiamo misure di sicurezza avanzate per proteggere i tuoi dati personali:
+            </p>
+            <ul class="privacy-list">
+                <li>Crittografia SSL/TLS per tutte le transazioni</li>
+                <li>Server sicuri e protetti</li>
+                <li>Accesso limitato ai dati personali solo al personale autorizzato</li>
+                <li>Backup regolari e sistemi di monitoraggio continuo</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Cookie e Tecnologie di Tracciamento</h2>
+            <p>
+                Il nostro sito utilizza cookie per migliorare la tua esperienza di navigazione. I cookie ci aiutano a:
+            </p>
+            <ul class="privacy-list">
+                <li>Ricordare le tue preferenze e il contenuto del carrello</li>
+                <li>Analizzare il traffico del sito</li>
+                <li>Personalizzare i contenuti in base ai tuoi interessi</li>
+            </ul>
+            <p>
+                Puoi gestire le impostazioni dei cookie nelle preferenze del tuo browser.
+            </p>
+        </div>
+
+        <div class="privacy-section">
+            <h2>I Tuoi Diritti</h2>
+            <p>
+                In conformità con il GDPR, hai il diritto di:
+            </p>
+            <ul class="privacy-list">
+                <li>Accedere ai tuoi dati personali</li>
+                <li>Richiedere la correzione di dati inesatti</li>
+                <li>Richiedere la cancellazione dei tuoi dati</li>
+                <li> Opporti al trattamento dei tuoi dati</li>
+                <li> Richiedere la portabilità dei dati</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Condivisione con Terze Parti</h2>
+            <p>
+                Non vendiamo i tuoi dati personali. Condividiamo informazioni solo con:
+            </p>
+            <ul class="privacy-list">
+                <li>Partner di spedizione per consegnare i tuoi ordini</li>
+                <li>Processori di pagamento per gestire le transazioni</li>
+                <li>Fornitori di servizi che ci aiutano a gestire il sito</li>
+            </ul>
+            <p>
+                Tutti i nostri partner sono tenuti a rispettare rigorosi standard di protezione dei dati.
+            </p>
+        </div>
+
+        <div class="privacy-section">
+            <h2>Modifiche alla Privacy Policy</h2>
+            <p>
+                Ci riserviamo il diritto di aggiornare questa policy in qualsiasi momento. Le modifiche saranno pubblicate su questa pagina con una data di aggiornamento rivista. Ti consigliamo di controllare periodicamente questa pagina per restare informato su come proteggiamo i tuoi dati.
+            </p>
+        </div>
+
+        <div class="privacy-contact">
+            <h3 style="color: #DC2424; margin-bottom: 15px;">Contattaci</h3>
+            <p>
+                Se hai domande o dubbi sulla nostra Privacy Policy, non esitare a contattarci:
+            </p>
+            <p class="mb-0">
+                <i class="bi bi-envelope me-1"></i><strong>Email:</strong> privacy@gormitishop.com<br />
+                <i class="bi bi-phone me-1"></i><strong>Telefono:</strong> +39 --- --- ----<br />
+                <i class="bi bi-house me-1"></i><strong>Indirizzo:</strong> Via Gorm, 123 - 12345 Gorm City
+            </p>
+        </div>
+
+        <div class="text-center mt-4">
+            <a class="btn btn-grad" asp-area="" asp-controller="Home" asp-action="Index">
+                Torna alla Home
+            </a>
+        </div>
+    </div>
+</div>
