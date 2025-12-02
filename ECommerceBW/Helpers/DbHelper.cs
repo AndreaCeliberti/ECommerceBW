@@ -9,7 +9,7 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace ECommerceBW.Helpers
 {
-    //ricerca filtrata, prezzo, logo, gormita della settimana
+    //ricerca filtrata, DONE prezzo, DONE logo, gormita della settimana
     public class DbHelper
     {
 
